@@ -1,0 +1,19 @@
+python3 test_pose.py /home/dlr/Project/SfmLearner-Pytorch/SfmLearner_Models/exp_pose_model_best.pth.tar --dataset-dir /home/dlr/kitti/dataset --sequences 09getting test metadata for theses sequences : {Path('/home/dlr/kitti/dataset/sequences/09')}
+100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 26.84it/s]
+1591 snippets to test
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████▋| 1587/1591 [03:24<00:00,  7.78it/s]
+
+Results
+                ATE,         RE
+mean         0.0195,     0.0041
+std          0.0106,     0.0022
+python3 test_pose.py /home/dlr/Project/SfmLearner-Pytorch/SfmLearner_Models/exp_pose_model_best.pth.tar --dataset-dir /home/dlr/kitti/dataset --sequences 10
+getting test metadata for theses sequences : {Path('/home/dlr/kitti/dataset/sequences/10')}
+100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 19.70it/s]
+1201 snippets to test
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████▌| 1197/1201 [02:46<00:00,  7.18it/s]
+
+Results
+                ATE,         RE
+mean         0.0148,     0.0042
+std          0.0096,     0.0026
