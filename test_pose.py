@@ -3,6 +3,7 @@ from torch.autograd import Variable
 
 from scipy.misc import imresize
 import numpy as np
+from PIL import Image
 from path import Path
 import argparse
 from tqdm import tqdm
@@ -13,16 +14,16 @@ from inverse_warp import pose_vec2mat
 
 parser = argparse.ArgumentParser(description='Script for PoseNet testing with corresponding groundTruth from KITTI Odometry',
                                  formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-parser.add_argument("pretrained_posenet", type=str, help="pretrained PoseNet path")
+parser.add_argument("pretrained_posenet", type=str, help="pretrained PoseNet path")#/home/dlr/Project/SfmLearner-Pytorch/SfmLearner_Models/exp_pose_model_best.pth.tar
 parser.add_argument("--img-height", default=128, type=int, help="Image height")
 parser.add_argument("--img-width", default=416, type=int, help="Image width")
 parser.add_argument("--no-resize", action='store_true', help="no resizing is done")
 parser.add_argument("--min-depth", default=1e-3)
 parser.add_argument("--max-depth", default=80)
 
-parser.add_argument("--dataset-dir", default='.', type=str, help="Dataset directory")
+parser.add_argument("--dataset-dir", default='.', type=str, help="Dataset directory")#/home/dlr/kitti/dataset
 parser.add_argument("--sequences", default=['09'], type=str, nargs='*', help="sequences to test")
-parser.add_argument("--output-dir", default=None, type=str, help="Output directory for saving predictions in a big 3D numpy file")
+parser.add_argument("--output-dir", default=None, type=str, help="Output directory for saving predictions in a big 3D numpy file")#/home/dlr/Project/SfmLearner-Pytorch/result
 parser.add_argument("--img-exts", default=['png', 'jpg', 'bmp'], nargs='*', type=str, help="images extensions to glob")
 parser.add_argument("--rotation-mode", default='euler', choices=['euler', 'quat'], type=str)
 
@@ -54,8 +55,9 @@ def main():
 
         h,w,_ = imgs[0].shape
         if (not args.no_resize) and (h != args.img_height or w != args.img_width):
-            imgs = [imresize(img, (args.img_height, args.img_width)).astype(np.float32) for img in imgs]
-
+            # https://blog.csdn.net/discoverer100/article/details/95534621
+            imgs = [imresize(img, (args.img_height, args.img_width)).astype(np.float32) for img in imgs] #solve ImportError: cannot import name 'imresize'
+            # imgs = [np.array(Image.fromarray(imgs).resize((args.img_height, args.img_width))).astype(np.float32) for img in imgs]
         imgs = [np.transpose(img, (2,0,1)) for img in imgs]
 
         ref_imgs = []
@@ -99,7 +101,7 @@ def main():
     print("std \t {:10.4f}, {:10.4f}".format(*std_errors))
 
     if args.output_dir is not None:
-        np.save(output_dir/'predictions.npy', predictions_array)
+        np.save(output_dir/'pose_predictions.npy', predictions_array)
 
 
 def compute_pose_error(gt, pred):

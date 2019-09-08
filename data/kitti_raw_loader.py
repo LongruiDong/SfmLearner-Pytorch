@@ -83,7 +83,7 @@ def transform_from_rot_trans(R, t):
     t = t.reshape(3, 1)
     return np.vstack((np.hstack([R, t]), [0, 0, 0, 1]))
 
-
+#载入kitti raw data
 class KittiRawLoader(object):
     def __init__(self,
                  dataset_dir,

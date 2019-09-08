@@ -15,9 +15,10 @@ class test_framework_KITTI(object):
     def generator(self):
         for img_list, pose_list, sample_list in zip(self.img_files, self.poses, self.sample_indices):
             for snippet_indices in sample_list:
-                imgs = [imread(img_list[i]).astype(np.float32) for i in snippet_indices]
+                # imgs = [np.array(Image.fromarray(np.asarray(Image.open(img_list[i])))).astype(np.float32) for i in snippet_indices]
+                imgs = [imread(img_list[i]).astype(np.float32) for i in snippet_indices] #
 
-                poses = np.stack(pose_list[i] for i in snippet_indices)
+                poses = np.stack(list(pose_list[i] for i in snippet_indices))#futurewarning
                 first_pose = poses[0]
                 poses[:,:,-1] -= first_pose[:,-1]
                 compensated_poses = np.linalg.inv(first_pose[:,:3]) @ poses

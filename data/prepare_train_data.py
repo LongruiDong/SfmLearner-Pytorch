@@ -8,7 +8,7 @@ from path import Path
 
 parser = argparse.ArgumentParser()
 parser.add_argument("dataset_dir", metavar='DIR',
-                    help='path to original dataset')
+                    help='path to original dataset')#raw kitti data /home/dlr/kitti/kittiraw/
 parser.add_argument("--dataset-format", type=str, default='kitti', choices=["kitti", "cityscapes"])
 parser.add_argument("--static-frames", default=None,
                     help="list of imgs to discard for being static, if not set will discard them based on speed \
@@ -19,7 +19,7 @@ parser.add_argument("--with-pose", action='store_true',
                     help="If available (e.g. with KITTI), will store pose ground truth along with images, for validation")
 parser.add_argument("--no-train-gt", action='store_true',
                     help="If selected, will delete ground truth depth to save space")
-parser.add_argument("--dump-root", type=str, default='dump', help="Where to dump the data")
+parser.add_argument("--dump-root", type=str, default='dump', help="Where to dump the data")#转储数据的位置
 parser.add_argument("--height", type=int, default=128, help="image height")
 parser.add_argument("--width", type=int, default=416, help="image width")
 parser.add_argument("--depth-size-ratio", type=int, default=1, help="will divide depth size by that ratio")
